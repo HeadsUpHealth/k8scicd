@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: hello-svc
-  namespace: headsup-develop
+  namespace: forked-develop
 spec:
   type: NodePort
   selector:

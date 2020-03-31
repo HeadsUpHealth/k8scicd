@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        registry = "sphenrie/k8scicd-headsup"
+        registry = "sphenrie/k8scicd-forked"
         GOCACHE = "/tmp"
     }
     stages {
@@ -57,7 +57,7 @@ pipeline {
             steps {
                 script{
                     def image_id = registry + ":$BUILD_NUMBER"
-                    sh "kubectl set image deployment hello-deployment go-app=${image_id} -n headsup-develop --record"
+                    sh "kubectl set image deployment hello-deployment go-app=${image_id} -n forked-develop --record"
                 }
             }
         }

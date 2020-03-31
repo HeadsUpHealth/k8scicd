@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hello-deployment
-  namespace: headsup-develop
+  namespace: forked-develop
   labels:
     role: go-app
 spec:
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: go-app
-        image: sphenrie/k8scicd-headsup:latest
+        image: sphenrie/k8scicd-forked:latest
         resources:
           requests:
             cpu: 10m
