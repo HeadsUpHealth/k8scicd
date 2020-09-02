@@ -1,44 +1,12 @@
 pipeline {
-agent {
-    kubernetes {
-      label 'demo'
-      defaultContainer 'jnlp'
-      yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-labels:
-  component: ci
-spec:
-  # Use service account that can deploy to all namespaces
-  serviceAccountName: jenkins
-  containers:
-  - name: docker
-    image: docker:latest
-    command:
-    - cat
-    tty: true
-    volumeMounts:
-    - mountPath: /var/run/docker.sock
-      name: docker-sock
-  volumes:
-    - name: docker-sock
-      hostPath:
-        path: /var/run/docker.sock
-"""
-}
-   }
+    agent any
     environment {
         registry = "sphenrie/k8scicd-forked"
         GOCACHE = "/tmp"
     }
     stages {
         stage('Build') {
-            agent { 
-                docker { 
-                    image 'golang' 
-                }
-            }
+            agent { label 'master' }
             steps {
                 // Create our project directory.
                 sh 'cd ${GOPATH}/src'
@@ -50,11 +18,7 @@ spec:
             }     
         }
         stage('Test') {
-            agent { 
-                docker { 
-                    image 'golang' 
-                }
-            }
+            agent { label 'master' }
             steps {                 
                 // Create our project directory.
                 sh 'cd ${GOPATH}/src'
