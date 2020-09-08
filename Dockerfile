@@ -1,6 +1,6 @@
 FROM golang:alpine AS build-env
 RUN mkdir /go/src/app 
-RUN apk update 
+RUN echo $HTTP_PROXY && echo $http_proxy && unset HTTP_PROXY && unset http_proxy && apk update
 RUN apk add --no-cache git
 ADD main.go /go/src/app/
 WORKDIR /go/src/app
