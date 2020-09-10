@@ -3,7 +3,7 @@ podTemplate(label: POD_LABEL, cloud: 'kubernetes',
 containers: [
     containerTemplate(name: 'build', image: 'golang', ttyEnabled: true, command: 'cat'),
     containerTemplate(name: 'test', image: 'golang', ttyEnabled: true, command: 'cat'),
-    containerTemplate(name: 'docker', image: 'docker:18.06.1-ce-dind', command: 'cat', ttyEnabled: true, privileged: true),
+    containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true),
     containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl', command: 'cat', ttyEnabled: true)
   ],
 volumes: [
