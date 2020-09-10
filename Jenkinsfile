@@ -3,8 +3,7 @@ podTemplate(label: POD_LABEL, cloud: 'kubernetes',
 containers: [
     containerTemplate(name: 'build', image: 'golang', ttyEnabled: true, command: 'cat'),
     containerTemplate(name: 'test', image: 'golang', ttyEnabled: true, command: 'cat'),
-    containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true),
-    containerTemplate(name: 'dind', image: 'docker:18.06.1-ce-dind', command: '', ttyEnabled: true, privileged: true),
+    containerTemplate(name: 'docker', image: 'docker:18.06.1-ce-dind', command: 'cat', ttyEnabled: true, privileged: true),
     containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl', command: 'cat', ttyEnabled: true)
   ],
 volumes: [
@@ -47,7 +46,7 @@ volumes: [
         }
 
         stage('Publish a Golang project') {
-            container('dind') {
+            container('docker') {
 
                 def appimage = docker.build registry + ":$BUILD_NUMBER"
                 docker.withRegistry( 'https://registry.app.headsuphealth.com', '1f06cab3-1ac3-4ac5-8075-4ca8676f4791' ) {
