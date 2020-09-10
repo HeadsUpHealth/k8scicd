@@ -46,7 +46,7 @@ volumes: [
         }
 
         stage('Publish a Golang project') {
-            container('docker') {
+            container('dind') {
 
                 def appimage = docker.build registry + ":$BUILD_NUMBER"
                 docker.withRegistry( 'https://registry.app.headsuphealth.com', '1f06cab3-1ac3-4ac5-8075-4ca8676f4791' ) {
